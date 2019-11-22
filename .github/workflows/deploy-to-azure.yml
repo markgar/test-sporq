@@ -13,6 +13,7 @@ jobs:
       run: |
         Install-Module Sporq -Force
         ./azuredeploy.ps1
+        Get-Content azuredeploy.json
       shell: pwsh
     - uses: azure/login@v1
       with:
