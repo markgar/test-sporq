@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Create Arm Template
+    - name: Emit Arm Template
       run: |
         Install-Module Sporq -Force
         ./azuredeploy.ps1
@@ -18,4 +18,6 @@ jobs:
       with:
         creds: ${{ secrets.sporq_deploy_creds }}
     - run: |
+        Get-ChildItem
+        Get-ChildItem ./out
         az group deployment create --resource-group "test-sporq-rg" --template-file ./out/azuredeploy.json
