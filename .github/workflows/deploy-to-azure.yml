@@ -8,8 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout Code
     - uses: actions/checkout@v1
-    - name: Deploy Arm Template to Azure
+    - name: Create Arm Template
       run: |
         Install-Module Sporq -Force
         ./azuredeploy.ps1
@@ -17,6 +18,6 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.sporq_deploy_creds }}
-    
     - run: |
         az webapp list --query "[?state=='Running']"
+        
