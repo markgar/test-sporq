@@ -13,11 +13,11 @@ jobs:
       run: |
         Install-Module Sporq -Force
         ./azuredeploy.ps1
+        Get-ChildItem
+        Get-ChildItem ./out
       shell: pwsh
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.sporq_deploy_creds }}
     - run: |
-        Get-ChildItem
-        Get-ChildItem ./out
         az group deployment create --resource-group "test-sporq-rg" --template-file ./out/azuredeploy.json
