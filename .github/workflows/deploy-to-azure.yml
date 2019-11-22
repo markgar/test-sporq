@@ -18,14 +18,15 @@ jobs:
         Get-Content azuredeploy.json
       shell: pwsh
     
-    - uses: azure/login@v1
+    - name: Azure Login
+      uses: azure/login@v1
       with:
         creds: ${{ secrets.sporq_deploy_creds }}
     
     - name: Azure CLI script
-          uses: azure/CLI@v1
-          with:
-            azcliversion: 2.0.72
-            inlineScript: |
-              az account show
-              az group deployment create --resource-group "test-sporq-rg" --template-file "azuredeploy.json" --name test-deploy
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+          az account show
+          az group deployment create --resource-group "test-sporq-rg" --template-file "azuredeploy.json" --name test-deploy
