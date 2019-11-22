@@ -20,4 +20,4 @@ jobs:
       with:
         creds: ${{ secrets.sporq_deploy_creds }}
     - run: |
-        az group deployment create --resource-group "test-sporq-rg" --template-file ./out/azuredeploy.json
+        az group deployment create --resource-group "test-sporq-rg" --template-file "./out/azuredeploy.json"
