@@ -16,8 +16,6 @@ jobs:
       run: |
         Install-Module Sporq -Force
         ./azuredeploy.ps1
-        Write-Host "Template to follow"
-        Get-Content azuredeploy.json
       shell: pwsh
     
     - name: Azure Login
