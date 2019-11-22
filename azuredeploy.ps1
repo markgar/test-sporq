@@ -12,8 +12,8 @@ $myStorageAccount = Get-SpqStorageAccount -CommonProperties $commonProperties -L
 # Add to Template
 $baseTemplate.resources += $myStorageAccount
 
-# create the ./out directory
-New-Item -ItemType Directory -Force -Path './out'
+# create the ./out directory - no need to output results to console (Out-Null)
+New-Item -ItemType Directory -Force -Path './out' | Out-Null
 
 # convert the template object to a json string and output to disk
 $baseTemplateAsJson = $baseTemplate | ConvertTo-Json -Depth 10
