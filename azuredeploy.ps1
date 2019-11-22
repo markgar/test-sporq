@@ -13,4 +13,10 @@ Write-Host $myStorageAccount
 $baseTemplate.resources += $myStorageAccount
 
 # convert the template object to a json string
-$baseTemplate | ConvertTo-Json -Depth 10
+$baseTemplate | ConvertTo-Json -Depth 10 
+
+# create the ./out directory
+New-Item -ItemType Directory -Force -Path './out'
+
+# output the template to the ./out directory
+$baseTemplate | Out-File './out/azuredeploy.json'
