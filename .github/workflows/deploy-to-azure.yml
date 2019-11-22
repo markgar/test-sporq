@@ -18,12 +18,12 @@ jobs:
         ./azuredeploy.ps1
       shell: pwsh
     
-    - name: Azure Login
+    - name: Login to Azure using Service Principal
       uses: azure/login@v1
       with:
         creds: ${{ secrets.sporq_deploy_creds }}
     
-    - name: Azure CLI script
+    - name: Perform Resource Group Deployment
       uses: azure/CLI@v1
       with:
         azcliversion: 2.0.72
