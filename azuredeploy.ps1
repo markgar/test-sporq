@@ -16,7 +16,7 @@ $baseTemplate.resources += $myStorageAccount
 $baseTemplate | ConvertTo-Json -Depth 10 
 
 # create the ./out directory
-New-Item -ItemType Directory -Force -Path './out'
+# New-Item -ItemType Directory -Force -Path './out'
 
 # output the template to the ./out directory
-$baseTemplate | Out-File './out/azuredeploy.json'
+$baseTemplate | Out-File 'azuredeploy.json'
