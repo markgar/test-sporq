@@ -11,6 +11,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Deploy Arm Template to Azure
       run: |
+        Install-Module Sporq -Force
         ./azuredeploy.ps1
       shell: pwsh
     - uses: azure/login@v1
