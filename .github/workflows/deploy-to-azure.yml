@@ -25,10 +25,9 @@ jobs:
 
     - name: Emit Arm Template
       run: |
-        $creds = "${{ secrets.another_set_of_creds }}" | ConvertTo-Json
-        $passwd = ConvertTo-SecureString $creds.password -AsPlainText -Force
-        $pscredential = New-Object System.Management.Automation.PSCredential($creds.appId, $passwd)
-        Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant $creds.tenant
+        $passwd = ConvertTo-SecureString "${{ secrets.sporq_sp_client_secret }}" -AsPlainText -Force
+        $pscredential = New-Object System.Management.Automation.PSCredential("c04a7026-3bdb-4643-8539-0c0f18d26b6f", $passwd)
+        Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant "72f988bf-86f1-41af-91ab-2d7cd011db47"
         ./azuredeploy.ps1
         New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json"
       shell: pwsh
@@ -39,3 +38,4 @@ jobs:
         azcliversion: 2.0.72
         inlineScript: |
           az group deployment create --resource-group "test-sporq-rg" --template-file "./azuredeploy.json"
+
