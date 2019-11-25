@@ -16,6 +16,7 @@ jobs:
       run: |
         Install-Module Sporq -Force
         ./azuredeploy.ps1
+        Get-Content azuredeploy.json
       shell: pwsh
     
     - name: Login to Azure using Service Principal
