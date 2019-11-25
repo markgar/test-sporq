@@ -7,5 +7,5 @@ $myStorageAccount = Get-SpqStorageAccount -ApplicationCode "kd8" -EnvironmentNam
 # Add to Template
 $baseTemplate.resources += $myStorageAccount
 
-# take the baseTemplate object, convert to Json, then output to disk
+# Take the baseTemplate object, convert to Json, then output to disk
 $baseTemplate | ConvertTo-Json -Depth 10 | Out-File './azuredeploy.json'
