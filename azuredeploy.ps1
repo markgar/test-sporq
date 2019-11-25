@@ -8,4 +8,4 @@ $myStorageAccount = Get-SpqStorageAccount -ApplicationCode "kd8" -EnvironmentNam
 $baseTemplate.resources += $myStorageAccount
 
 # output to ./out directory so I can ignore it in .gitignore
-$baseTemplateAsJson | Out-File './azuredeploy.json'
+$baseTemplate | ConvertTo-Json -Depth 10 | Out-File './azuredeploy.json'
