@@ -33,8 +33,6 @@ jobs:
         # put that and a root location for where the tests are into the $script object
         $script = @{ Path = "."; Parameters = $parameters }
         Invoke-Pester -Script $script -OutputFile Tests.Report.xml -OutputFormat NUnitXml
-        $date = Get-Date -Format FileDateTime
-        New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json" -Name $date
       shell: pwsh
 
     - name: Deploy Arm Template
