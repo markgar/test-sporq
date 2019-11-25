@@ -28,5 +28,6 @@ jobs:
     - name: Emit and Deploy Arm Template
       run: |
         ./azuredeploy.ps1
-        New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json"
+        $date = Get-Date -Format FileDateTime
+        New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json" -Name $date
       shell: pwsh
