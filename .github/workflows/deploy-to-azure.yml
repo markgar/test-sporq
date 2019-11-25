@@ -19,7 +19,7 @@ jobs:
 
     - name: Emit Arm Template
       run: |
-        Install-Module Az
+        Install-Module Az -Force
         Install-Module Sporq -Force
         ./azuredeploy.ps1
         New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json"
