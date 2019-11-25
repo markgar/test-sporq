@@ -11,18 +11,18 @@ jobs:
 
     - name: Perform Checkout
       uses: actions/checkout@v1
-    
-    - name: Emit Arm Template
-      run: |
-        Install-Module Sporq -Force
-        ./azuredeploy.ps1
-        Get-Content azuredeploy.json
-      shell: pwsh
-    
+
     - name: Login to Azure using Service Principal
       uses: azure/login@v1
       with:
         creds: ${{ secrets.sporq_deploy_creds }}
+
+    - name: Emit Arm Template
+      run: |
+        Install-Module Sporq -Force
+        ./azuredeploy.ps1
+        New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json"
+      shell: pwsh
     
     - name: Perform Resource Group Deployment
       uses: azure/CLI@v1
