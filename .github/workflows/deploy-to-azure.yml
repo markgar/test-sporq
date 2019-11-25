@@ -30,7 +30,7 @@ jobs:
     - name: Emit and Test Arm Template
       run: |
         ./azuredeploy.ps1
-        $parameters = @{ TemplatePath = $TemplatePath }
+        $parameters = @{ TemplatePath = "azuredeploy.json" }
         # put that and a root location for where the tests are into the $script object
         $script = @{ Path = "."; Parameters = $parameters }
         Invoke-Pester -Script $script -OutputFile Tests.Report.xml -OutputFormat NUnitXml
