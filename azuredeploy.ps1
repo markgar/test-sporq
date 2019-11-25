@@ -2,7 +2,7 @@
 $baseTemplate = Get-SpqBaseTemplate
 
 # Create Storage Account
-$myStorageAccount = Get-SpqStorageAccount -ApplicationCode "kd8" -EnvironmentName "dev" -Location "centralus" -StorageAccessTier "Standard_LRS" -StorageTier "Standard"
+$myStorageAccount = Get-SpqStorageAccount -ApplicationCode "kd8" -EnvironmentName "dev" -Location "centralus" -StorageAccessTier "Standard_LRS"
 
 # Add to Template
 $baseTemplate.resources += $myStorageAccount
