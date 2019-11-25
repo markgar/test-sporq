@@ -16,7 +16,7 @@ jobs:
       run: |
         Install-Module Az -Force
         Install-Module Sporq -Force
-        Install-Module Pester
+        Install-Module Pester -Force
       shell: pwsh
 
     - name: Log in to Azure using Service Principal
