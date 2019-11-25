@@ -16,6 +16,7 @@ jobs:
       run: |
         Install-Module Az -Force
         Install-Module Sporq -Force
+        Install-Module Pester
       shell: pwsh
 
     - name: Log in to Azure using Service Principal
@@ -25,9 +26,19 @@ jobs:
         Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant "72f988bf-86f1-41af-91ab-2d7cd011db47"
       shell: pwsh
 
-    - name: Emit and Deploy Arm Template
+    - name: Emit and Test Arm Template
       run: |
         ./azuredeploy.ps1
+        $parameters = @{ TemplatePath = $TemplatePath }
+        # put that and a root location for where the tests are into the $script object
+        $script = @{ Path = "."; Parameters = $parameters }
+        Invoke-Pester -Script $script -OutputFile Tests.Report.xml -OutputFormat NUnitXml
+        $date = Get-Date -Format FileDateTime
+        New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json" -Name $date
+      shell: pwsh
+
+    - name: Deploy Arm Template
+      run: |
         $date = Get-Date -Format FileDateTime
         New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json" -Name $date
       shell: pwsh
