@@ -9,4 +9,5 @@ $baseTemplate.resources += $myStorageAccount
 
 # Take the baseTemplate object, convert to Json, then output to disk
 $baseTemplate | ConvertTo-Json -Depth 10 | Out-File './azuredeploy.json'
-#deploy
+
+Get-SpqPesterTests -OutputPath "./"
