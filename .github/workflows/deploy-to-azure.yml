@@ -12,30 +12,21 @@ jobs:
     - name: Perform Checkout
       uses: actions/checkout@v1
 
-    - name: Login to Azure using Service Principal
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.sporq_deploy_creds }}
-
     - name: Install Stuff
       run: |
         Install-Module Az -Force
         Install-Module Sporq -Force
       shell: pwsh
 
-    - name: Emit Arm Template
+    - name: Log in to Azure using Service Principal
       run: |
         $passwd = ConvertTo-SecureString "${{ secrets.sporq_sp_client_secret }}" -AsPlainText -Force
         $pscredential = New-Object System.Management.Automation.PSCredential("c04a7026-3bdb-4643-8539-0c0f18d26b6f", $passwd)
         Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant "72f988bf-86f1-41af-91ab-2d7cd011db47"
+      shell: pwsh
+
+    - name: Emit and Deploy Arm Template
+      run: |
         ./azuredeploy.ps1
         New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json"
       shell: pwsh
-    
-    - name: Perform Resource Group Deployment
-      uses: azure/CLI@v1
-      with:
-        azcliversion: 2.0.72
-        inlineScript: |
-          az group deployment create --resource-group "test-sporq-rg" --template-file "./azuredeploy.json"
-
