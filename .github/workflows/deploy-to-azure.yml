@@ -30,4 +30,5 @@ jobs:
         azcliversion: 2.0.72
         inlineScript: |
           $deploymentName = Get-Date -Format FileDateTime
+          Write-Host $deploymentName
           az group deployment create --resource-group "test-sporq-rg" --template-file "./azuredeploy.json" --name $deploymentName
