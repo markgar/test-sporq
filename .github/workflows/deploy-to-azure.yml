@@ -17,10 +17,14 @@ jobs:
       with:
         creds: ${{ secrets.sporq_deploy_creds }}
 
-    - name: Emit Arm Template
+    - name: Install Stuff
       run: |
         Install-Module Az -Force
         Install-Module Sporq -Force
+      shell: pwsh
+
+    - name: Emit Arm Template
+      run: |
         ./azuredeploy.ps1
         New-AzResourceGroupDeployment -ResourceGroupName "test-sporq-rg" -TemplateFile "./azuredeploy.json"
       shell: pwsh
