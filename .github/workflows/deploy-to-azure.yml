@@ -27,9 +27,13 @@ jobs:
         Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant "72f988bf-86f1-41af-91ab-2d7cd011db47"
       shell: pwsh
 
-    - name: Emit and Test Arm Template
+    - name: Emit Arm Template
       run: |
         ./azuredeploy.ps1
+      shell: pwsh
+    
+    - name: Test Arm Template
+      run: |
         $parameters = @{ TemplatePath = "azuredeploy.json" }
         # put that and a root location for where the tests are into the $script object
         $script = @{ Path = "."; Parameters = $parameters }
